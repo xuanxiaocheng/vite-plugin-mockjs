@@ -1,12 +1,9 @@
-import { Filter, Options } from "http-proxy-middleware";
-interface configOptions extends Options {
-    filter?: Filter;
-}
+import { ViteDevServer } from "vite";
 interface options {
-    [url: string]: configOptions;
+    data: string;
+    entry: string;
 }
-export default function serverProxy(options: options): {
-    name: string;
-    configureServer(server: any): void;
+export default function (options?: options): {
+    configureServer: (app: ViteDevServer) => void;
 };
 export {};

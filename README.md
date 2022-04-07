@@ -10,9 +10,9 @@ Provide local proxy for [Vite](https://vitejs.dev).
 
 ```bash
 # if using npm
-npm i vite-plugin-filter-proxy -D
+npm i vite-plugin-mockjs -D
 # if using yarn
-yarn add vite-plugin-filter-proxy -D
+yarn add vite-plugin-mockjs -D
 ```
 
 ### Run example
@@ -187,3 +187,32 @@ MIT
 
 [npm-url]: https://npmjs.com/package/vite-plugin-filter-proxy
 [vite-url]: https://vitejs.dev
+
+```json
+{
+   "DELETE /navigation 500": true,
+   "/mgrDbCmp/structDtools 200": "domain/dbresource_Dtools.js",
+   "/supportTicket/getClassify.do": { "success": true, "data": { "classify": null }, "message": null, "status": 200 },
+   "/appDashboard/resourceReport 1000": "domain/resourceReport",
+   
+}
+```
+
+```js
+const memcached = require('./response_mysql_Asgard.json')
+const mysql = require('./response_mysql_Asgard.json')
+const redis = require('./response_redis_Asgard.json')
+
+const EMPTY = { success: true, data: {}, message: null, status: 200 }
+
+const config = {
+    memcached: EMPTY,
+    redis,
+    mysql
+}
+
+module.exports = function(request, response) {
+    const type = request.url.split('/')[2]
+    response.end(JSON.stringify(config[type]))
+}
+```

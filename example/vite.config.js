@@ -1,16 +1,15 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
-import filterProxy from '../dist';
+import viteMockjs from '../dist';
+import path from 'path'
 
 // https://vitejs.dev/config/
 export default defineConfig({
     plugins: [
         vue(),
-        filterProxy({
-            '/': {
-                target: 'http://localhost:3000',
-                /*  filter: ((reqPath, req) => req.method === 'POST') */
-            }
+        viteMockjs({
+            entry: path.resolve('./mock/routes.json'),
+            data: path.resolve('./mock/data')
         })
     ],
     server: {
