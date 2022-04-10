@@ -1,4 +1,5 @@
 {
     "/Booleantest 200": true,
-    "/Jsontest 200": "jsonTest"
+    "GET /Jsontest 200": "jsonTest",
+    "POST /JStest 200": "test.js"
 }

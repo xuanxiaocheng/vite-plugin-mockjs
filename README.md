@@ -55,31 +55,37 @@ interface Options {
 }
 ```
 
-## filter proxy examples
+## support file type
+Booleans .json .js
 
-```json
+## Booleans example
+```
+  //config of routes.json
+  "/Booleantest 200": true,
+
+  //return data
+  true: { success: true, data: true, message: null, status: 200 },
+  false: { success: false, message: null, data: false, status: 200 },
+```
+
+
+## routes.json examples
+
+```
 {
-   "DELETE /navigation 500": true,
-   "/structDtools 200": "Dtools.js",
-   "getData.do": { "success": true, "data": { "Data": null }, "message": null, "status": 200 },
-   "resource 1000": "Report",
-   
+    "/Booleantest 200": true,         //Undefined request method defaults to GET
+    "GET /Jsontest 200": "jsonTest",  //No suffix defaults to a json file
+    "POST /JStest 200": "test.js"
 }
 ```
 
-```Dtools.js.js
-const mysql = require('./mysql.json')
-const redis = require('./redis.json')
+```
+//test.js
+const params1 = require('./params1.json')
 const EMPTY = { success: true, data: {}, message: null, status: 200 }
-
-const config = {
-    memcached: EMPTY,
-    redis,
-    mysql
-}
-
+const config = { params1, params2: EMPTY }
 module.exports = function(request, response) {
-    const type = request.url.split('/')[2]
+    const type = request._parsedUrl.query.split('=')[1]
     response.end(JSON.stringify(config[type]))
 }
 ```
@@ -89,5 +95,5 @@ module.exports = function(request, response) {
 
 MIT
 
-[npm-url]: https://npmjs.com/package/vite-plugin-filter-proxy
+[npm-url]: https://npmjs.com/package/vite-plugin-mockjs
 [vite-url]: https://vitejs.dev
